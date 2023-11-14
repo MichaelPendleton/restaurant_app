@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/screens/drawer_screen.dart';
+import 'package:restaurant_app/widgets/menu_item_list.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -31,6 +32,13 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   // Handle the "Entrees" button press
                   print('Entrees button pressed');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => MenuItemList(
+                          selection: Selection.entree,
+                          isKids: false /*Needs variable*/),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 24),
@@ -43,6 +51,13 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   // Handle the "Sides" button press
                   print('Sides button pressed');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => MenuItemList(
+                          selection: Selection.side,
+                          isKids: false /*Needs variable*/),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 24),
@@ -55,6 +70,13 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   // Handle the "Beverages" button press
                   print('Beverages button pressed');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => MenuItemList(
+                          selection: Selection.beverage,
+                          isKids: false /*Needs variable*/),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 24),
