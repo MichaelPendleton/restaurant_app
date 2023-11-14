@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/screens/menu_screen.dart';
-import 'package:restaurant_app/screens/games_screen.dart';
+import 'package:restaurant_app/screens/games/games_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
