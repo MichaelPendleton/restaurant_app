@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/screens/drawer_screen.dart';
 import 'package:restaurant_app/widgets/menu_item_list.dart';
+import 'package:restaurant_app/widgets/new_menu_item.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -20,6 +21,18 @@ class _MenuScreenState extends State<MenuScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Menu'),
+          //Temporary Add Menu Item Button
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const NewMenuItem(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.add))
+          ],
         ),
         drawer: Drawer(
           child: DrawerScreen(),
