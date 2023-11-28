@@ -76,25 +76,21 @@ class _MenuItemListState extends State<MenuItemList> {
     }
   }
 
-  //Not yet implemented
-  // void _removeMenuItem(MenuItem menuItem) async {
-  //   final index = _menuItems.indexOf(menuItem);
-  //   setState(() {
-  //     _menuItems.remove(menuItem);
-  //   });
+  void _addItem() async {
+    final newMenuItem = await Navigator.of(context).push<MenuItem>(
+      MaterialPageRoute(
+        builder: (context) => const NewMenuItem(),
+      ),
+    );
 
-  //   final url = Uri.https('csc322-shopping-default-rtdb.firebaseio.com',
-  //       'shopping-list/${menuItem.id}.json');
+    if (newMenuItem == null) {
+      return;
+    }
 
-  //   final response = await http.delete(url);
-
-  //   if (response.statusCode >= 400) {
-  //     // Optional: Show error message
-  //     setState(() {
-  //       _menuItems.insert(index, menuItem);
-  //     });
-  //   }
-  // }
+    setState(() {
+      _menuItems.add(newMenuItem);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,15 +123,7 @@ class _MenuItemListState extends State<MenuItemList> {
           title: const Text('Menu'),
           //Temporary Add Menu Item Button
           actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const NewMenuItem(),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.add))
+            IconButton(onPressed: _addItem, icon: const Icon(Icons.add))
           ],
         ),
         body: content);

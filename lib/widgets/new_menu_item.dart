@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
-import 'package:flutter/widgets.dart';
 import 'package:restaurant_app/models/menu_item.dart';
 import 'package:restaurant_app/models/menu_item_type.dart';
 
