@@ -33,8 +33,7 @@ class _NewMenuItemState extends State<NewMenuItem> {
         _isSending = true;
       });
       final url = Uri.https(
-          'https://csc322-restaurant-app-default-rtdb.firebaseio.com',
-          'menu.json');
+          'csc322-restaurant-app-default-rtdb.firebaseio.com', 'menu.json');
       final response = await http.post(
         url,
         headers: {

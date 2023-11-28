@@ -4,8 +4,8 @@ class MenuItem {
   const MenuItem({
     required this.id,
     required this.name,
-    required this.type,
     required this.price,
+    required this.type,
     required this.isKids,
     required this.glutenFree,
   });
