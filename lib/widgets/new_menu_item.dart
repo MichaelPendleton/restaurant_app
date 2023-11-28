@@ -42,7 +42,7 @@ class _NewMenuItemState extends State<NewMenuItem> {
           {
             'name': _enteredName,
             'price': _enteredPrice,
-            'type': _selectedMenuItemType,
+            // 'type': _selectedMenuItemType,
             'isKids': _selectedIsKids,
             'isGlutenFree': _selectedIsGlutenFree,
           },
@@ -57,12 +57,13 @@ class _NewMenuItemState extends State<NewMenuItem> {
 
       Navigator.of(context).pop(
         MenuItem(
-            id: resData['name'],
-            name: _enteredName,
-            price: _enteredPrice,
-            type: _selectedMenuItemType,
-            isKids: _selectedIsKids,
-            glutenFree: _selectedIsGlutenFree),
+          id: resData['name'],
+          name: _enteredName,
+          price: _enteredPrice,
+          // type: _selectedMenuItemType,
+          isKids: _selectedIsKids,
+          glutenFree: _selectedIsGlutenFree,
+        ),
       );
     }
   }
@@ -123,28 +124,28 @@ class _NewMenuItemState extends State<NewMenuItem> {
                       },
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: DropdownButtonFormField(
-                      value: _selectedMenuItemType,
-                      items: [
-                        for (final type in MenuItemType.values)
-                          DropdownMenuItem(
-                            value: type,
-                            child: Row(
-                              children: [
-                                Text(type.name),
-                              ],
-                            ),
-                          ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedMenuItemType = value!;
-                        });
-                      },
-                    ),
-                  ),
+                  // const SizedBox(width: 10),
+                  // Expanded(
+                  //   child: DropdownButtonFormField(
+                  //     value: _selectedMenuItemType,
+                  //     items: [
+                  //       for (final type in MenuItemType.values)
+                  //         DropdownMenuItem(
+                  //           value: type,
+                  //           child: Row(
+                  //             children: [
+                  //               Text(type.name),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //     ],
+                  //     onChanged: (value) {
+                  //       setState(() {
+                  //         _selectedMenuItemType = value!;
+                  //       });
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -196,7 +197,12 @@ class _NewMenuItemState extends State<NewMenuItem> {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: _isSending ? null : _saveMenuItem,
+                onPressed: _isSending
+                    ? null
+                    : () {
+                        _saveMenuItem();
+                        print(_isSending);
+                      },
                 child: _isSending
                     ? const SizedBox(
                         height: 16,

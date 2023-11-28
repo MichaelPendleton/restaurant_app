@@ -59,7 +59,7 @@ class _MenuItemListState extends State<MenuItemList> {
             id: menuItem.key,
             name: menuItem.value['name'],
             price: menuItem.value['price'],
-            type: menuItem.value['type'],
+            // type: menuItem.value['type'],
             isKids: menuItem.value['isKids'],
             glutenFree: menuItem.value['isGlutenFree'],
           ),
