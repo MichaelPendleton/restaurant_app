@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:restaurant_app/data/types.dart';
 
 import 'package:restaurant_app/models/menu_item.dart';
 import 'package:restaurant_app/widgets/new_menu_item.dart';
@@ -54,12 +55,16 @@ class _MenuItemListState extends State<MenuItemList> {
       final Map<String, dynamic> listData = json.decode(response.body);
       final List<MenuItem> loadedMenuItems = [];
       for (final menuItem in listData.entries) {
+        final type = types.entries
+            .firstWhere(
+                (itemType) => itemType.value.title == menuItem.value['type'])
+            .value;
         loadedMenuItems.add(
           MenuItem(
             id: menuItem.key,
             name: menuItem.value['name'],
             price: menuItem.value['price'],
-            // type: menuItem.value['type'],
+            type: type,
             isKids: menuItem.value['isKids'],
             glutenFree: menuItem.value['isGlutenFree'],
           ),

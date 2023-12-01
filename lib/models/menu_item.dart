@@ -5,7 +5,7 @@ class MenuItem {
     required this.id,
     required this.name,
     required this.price,
-    // required this.type,
+    required this.type,
     required this.isKids,
     required this.glutenFree,
   });
@@ -13,7 +13,7 @@ class MenuItem {
   final String id;
   final String name;
   final double price;
-  // final MenuItemType type;
+  final MenuItemType type;
   final bool isKids;
   final bool glutenFree;
 }

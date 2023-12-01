@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:restaurant_app/models/menu_item.dart';
 import 'package:restaurant_app/models/menu_item_type.dart';
+import 'package:restaurant_app/data/types.dart';
 
 class NewMenuItem extends StatefulWidget {
   const NewMenuItem({super.key});
@@ -21,7 +22,7 @@ class _NewMenuItemState extends State<NewMenuItem> {
   var _isSending = false;
   var _enteredName = '';
   var _enteredPrice = 0.0;
-  var _selectedMenuItemType = MenuItemType.entree;
+  var _selectedMenuItemType = types[MenuItemTypes.entree]!;
   var _selectedIsKids = false;
   var _selectedIsGlutenFree = false;
 
@@ -42,7 +43,7 @@ class _NewMenuItemState extends State<NewMenuItem> {
           {
             'name': _enteredName,
             'price': _enteredPrice,
-            // 'type': _selectedMenuItemType,
+            'type': _selectedMenuItemType.title,
             'isKids': _selectedIsKids,
             'isGlutenFree': _selectedIsGlutenFree,
           },
@@ -60,7 +61,7 @@ class _NewMenuItemState extends State<NewMenuItem> {
           id: resData['name'],
           name: _enteredName,
           price: _enteredPrice,
-          // type: _selectedMenuItemType,
+          type: _selectedMenuItemType,
           isKids: _selectedIsKids,
           glutenFree: _selectedIsGlutenFree,
         ),
@@ -74,7 +75,6 @@ class _NewMenuItemState extends State<NewMenuItem> {
       appBar: AppBar(
         title: const Text('Add Menu Item'),
       ),
-      // Add Form
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Form(
@@ -124,28 +124,24 @@ class _NewMenuItemState extends State<NewMenuItem> {
                       },
                     ),
                   ),
-                  // const SizedBox(width: 10),
-                  // Expanded(
-                  //   child: DropdownButtonFormField(
-                  //     value: _selectedMenuItemType,
-                  //     items: [
-                  //       for (final type in MenuItemType.values)
-                  //         DropdownMenuItem(
-                  //           value: type,
-                  //           child: Row(
-                  //             children: [
-                  //               Text(type.name),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //     ],
-                  //     onChanged: (value) {
-                  //       setState(() {
-                  //         _selectedMenuItemType = value!;
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: DropdownButtonFormField(
+                      value: _selectedMenuItemType,
+                      items: [
+                        for (final menuItemType in types.entries)
+                          DropdownMenuItem(
+                            value: menuItemType.value,
+                            child: Text(menuItemType.value.title),
+                          ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedMenuItemType = value!;
+                        });
+                      },
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -201,7 +197,6 @@ class _NewMenuItemState extends State<NewMenuItem> {
                     ? null
                     : () {
                         _saveMenuItem();
-                        print(_isSending);
                       },
                 child: _isSending
                     ? const SizedBox(
