@@ -12,10 +12,10 @@ enum Selection { entree, side, beverage }
 
 class MenuItemList extends StatefulWidget {
   const MenuItemList(
-      {super.key, required this.selection, required this.isKids});
+      {super.key, required this.selection, required this.isKidsFilter});
 
   final Selection selection;
-  final bool isKids;
+  final bool isKidsFilter;
 
   @override
   State<MenuItemList> createState() => _MenuItemListState();
@@ -101,17 +101,22 @@ class _MenuItemListState extends State<MenuItemList> {
   Widget build(BuildContext context) {
     Widget content = const Center(child: Text('No items added yet.'));
 
+    // Filter the menu items based on the selected category (Kids or Adults)
+    final filteredMenuItems = _menuItems
+        .where((item) => widget.isKidsFilter ? item.isKids : !item.isKids)
+        .toList();
+
     if (_isLoading) {
       content = const Center(child: CircularProgressIndicator());
     }
 
     //WORK IN PROGRESS
-    if (_menuItems.isNotEmpty) {
+    if (filteredMenuItems.isNotEmpty) {
       content = Column(
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: _menuItems.length,
+              itemCount: filteredMenuItems.length,
               itemBuilder: (context, index) {
                 return Card(
                   margin: const EdgeInsets.all(8),
@@ -122,7 +127,7 @@ class _MenuItemListState extends State<MenuItemList> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(_menuItems[index].name,
+                      Text(filteredMenuItems[index].name,
                           style: const TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold)),
                       const SizedBox(width: 20),
@@ -130,32 +135,29 @@ class _MenuItemListState extends State<MenuItemList> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Price: \$${_menuItems[index].price.toStringAsFixed(2)}',
+                            'Price: \$${filteredMenuItems[index].price.toStringAsFixed(2)}',
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(width: 20),
                           Text(
-                            _menuItems[index].glutenFree
+                            filteredMenuItems[index].glutenFree
                                 ? 'Gluten Free'
                                 : 'Contains Gluten',
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(width: 20),
-                          Text(
-                            _menuItems[index].isKids ? 'Kids' : 'Adult',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
+                          // const SizedBox(width: 20),
+                          // Text(
+                          //   _filteredMenuItems[index].isKids ? 'Kid ' : 'Adult',
+                          //   style: const TextStyle(
+                          //       fontSize: 20, fontWeight: FontWeight.bold),
+                          // ),
                         ],
                       ),
                     ],
                   ),
                 );
-                // return ListTile(
-                //   title: Text(_menuItems[index].name),
-                // );
               },
             ),
           ),

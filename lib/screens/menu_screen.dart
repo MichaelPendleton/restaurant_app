@@ -32,9 +32,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => const MenuItemList(
+                      builder: (ctx) => MenuItemList(
                           selection: Selection.entree,
-                          isKids: false /*Needs variable*/),
+                          isKidsFilter: _currentIndex == 1),
                     ),
                   );
                 },
@@ -49,9 +49,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => const MenuItemList(
+                      builder: (ctx) => MenuItemList(
                           selection: Selection.side,
-                          isKids: false /*Needs variable*/),
+                          isKidsFilter: _currentIndex == 1),
                     ),
                   );
                 },
@@ -66,9 +66,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => const MenuItemList(
+                      builder: (ctx) => MenuItemList(
                           selection: Selection.beverage,
-                          isKids: false /*Needs variable*/),
+                          isKidsFilter: _currentIndex == 1),
                     ),
                   );
                 },
