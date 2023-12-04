@@ -30,11 +30,9 @@ class _MenuScreenState extends State<MenuScreen> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: () {
-                  // Handle the "Entrees" button press
-                  print('Entrees button pressed');
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
+                      builder: (ctx) => const MenuItemList(
                           selection: Selection.entree,
                           isKids: false /*Needs variable*/),
                     ),
@@ -49,11 +47,9 @@ class _MenuScreenState extends State<MenuScreen> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  // Handle the "Sides" button press
-                  print('Sides button pressed');
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
+                      builder: (ctx) => const MenuItemList(
                           selection: Selection.side,
                           isKids: false /*Needs variable*/),
                     ),
@@ -68,11 +64,9 @@ class _MenuScreenState extends State<MenuScreen> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  // Handle the "Beverages" button press
-                  print('Beverages button pressed');
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
+                      builder: (ctx) => const MenuItemList(
                           selection: Selection.beverage,
                           isKids: false /*Needs variable*/),
                     ),

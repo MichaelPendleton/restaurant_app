@@ -113,9 +113,49 @@ class _MenuItemListState extends State<MenuItemList> {
             child: ListView.builder(
               itemCount: _menuItems.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_menuItems[index].name),
+                return Card(
+                  margin: const EdgeInsets.all(8),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  color: Theme.of(context)
+                      .primaryColor, // Change later based on decided theme
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(_menuItems[index].name,
+                          style: const TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
+                      const SizedBox(width: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Price: \$${_menuItems[index].price.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(width: 20),
+                          Text(
+                            _menuItems[index].glutenFree
+                                ? 'Gluten Free'
+                                : 'Contains Gluten',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(width: 20),
+                          Text(
+                            _menuItems[index].isKids ? 'Kids' : 'Adult',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 );
+                // return ListTile(
+                //   title: Text(_menuItems[index].name),
+                // );
               },
             ),
           ),
