@@ -2,8 +2,15 @@
 
 import 'package:flutter/material.dart';
 
+class AppColor {
+  static Color primaryColor = const Color.fromARGB(100, 160, 197, 172);
+  static Color primaryColorDark = const Color.fromARGB(255, 160, 197, 172);
+  static Color blueColor = const Color.fromARGB(100, 35, 33, 167);
+  static Color greenColor = const Color.fromARGB(100, 0, 128, 0);
+}
+
 class TicTacToeGame extends StatefulWidget {
-  const TicTacToeGame({super.key});
+  const TicTacToeGame({Key? key});
 
   @override
   _TicTacToeGameState createState() => _TicTacToeGameState();
@@ -11,9 +18,9 @@ class TicTacToeGame extends StatefulWidget {
 
 int turnNumber = 0;
 
-Color blueColor = const Color.fromARGB(255, 35, 33, 167);
+Color blueColor = AppColor.blueColor;
 Color redColor = const Color.fromARGB(255, 167, 33, 33);
-Color greyColor = const Color.fromARGB(57, 48, 47, 47);
+Color greyColor = const Color.fromARGB(255, 220, 220, 220); // Light Grey
 
 bool gameOver = false;
 String gameStatus = 'Blue\'s Turn';
@@ -27,7 +34,7 @@ List<Color> initialBoardColors = [
   greyColor,
   greyColor,
   greyColor,
-  greyColor
+  greyColor,
 ];
 
 List<Color> boardColors = initialBoardColors;
@@ -66,13 +73,6 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
         boardColors[index] = blueColor;
         turnNumber++;
       }
-    } else {
-      // ScaffoldMessenger.of(context).clearSnackBars();
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Click on an empty space.'),
-      //   ),
-      // );
     }
   }
 
@@ -113,6 +113,25 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
     }
   }
 
+  Widget _styledMessage(String message, Color boxColor) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: boxColor,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Text(
+        message,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 18.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var boxSize = (MediaQuery.of(context).size.width / 20) * 5;
@@ -121,16 +140,15 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
       home: Scaffold(
         appBar: AppBar(
           title: const Padding(
-            padding: EdgeInsets.only(left: 5), // Adjust padding as needed
+            padding: EdgeInsets.only(left: 5),
             child: Text("Tic Tac Toe"),
           ),
           leading: Padding(
-            padding:
-                const EdgeInsets.only(right: 5), // Adjust padding as needed
+            padding: const EdgeInsets.only(right: 5),
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back), // Drawer icon
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -139,65 +157,83 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
             ),
           ),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(gameOver
-                  ? gameStatus
-                  : (turnNumber % 2 == 0 ? 'Blue\'s Turn' : 'Red\'s Turn')),
-              Visibility(
-                visible: gameOver,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    TextButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          for (int i = 0; i < boardColors.length; i++) {
-                            boardColors[i] = greyColor;
-                          }
-                          turnNumber = 0;
-                          gameOver = false;
-                        });
-                      },
-                      label: const Text('Restart Game'),
-                      icon: const Icon(Icons.replay_outlined),
+        body: Container(
+          color: AppColor.primaryColor,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Visibility(
+                  visible: gameOver,
+                  child: _styledMessage(
+                    gameStatus,
+                    gameStatus == 'BLUE WON!!!'
+                        ? AppColor.blueColor
+                        : gameStatus == 'RED WON!!!'
+                            ? redColor
+                            : AppColor.greenColor,
+                  ),
+                ),
+                Visibility(
+                  visible: gameOver,
+                  child: const SizedBox(height: 20),
+                ),
+                Text(
+                  gameOver
+                      ? ''
+                      : (turnNumber % 2 == 0 ? 'Blue\'s Turn' : 'Red\'s Turn'),
+                ),
+                Visibility(
+                  visible: gameOver,
+                  child: TextButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        for (int i = 0; i < boardColors.length; i++) {
+                          boardColors[i] = greyColor;
+                        }
+                        turnNumber = 0;
+                        gameOver = false;
+                      });
+                    },
+                    label: Text(
+                      'Restart Game',
+                      style: const TextStyle(color: Colors.black),
                     ),
-                    const SizedBox(height: 32),
+                    icon:
+                        const Icon(Icons.replay_outlined, color: Colors.black),
+                  ),
+                ),
+                Visibility(
+                  visible: !gameOver,
+                  child: const SizedBox(height: 100),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _drawBox(boxSize, 0),
+                    _drawBox(boxSize, 1),
+                    _drawBox(boxSize, 2),
                   ],
                 ),
-              ),
-              Visibility(
-                visible: !gameOver,
-                child: const SizedBox(height: 100),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _drawBox(boxSize, 0),
-                  _drawBox(boxSize, 1),
-                  _drawBox(boxSize, 2),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _drawBox(boxSize, 3),
-                  _drawBox(boxSize, 4),
-                  _drawBox(boxSize, 5),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _drawBox(boxSize, 6),
-                  _drawBox(boxSize, 7),
-                  _drawBox(boxSize, 8),
-                ],
-              ),
-              const SizedBox(height: 150),
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _drawBox(boxSize, 3),
+                    _drawBox(boxSize, 4),
+                    _drawBox(boxSize, 5),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _drawBox(boxSize, 6),
+                    _drawBox(boxSize, 7),
+                    _drawBox(boxSize, 8),
+                  ],
+                ),
+                const SizedBox(height: 150),
+              ],
+            ),
           ),
         ),
       ),
