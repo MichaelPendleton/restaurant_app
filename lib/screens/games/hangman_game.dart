@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app/models/words.dart';
 
 class AppColor {
-  static Color primaryColor = const Color(0XFF39298a);
-  static Color primaryColorDark = const Color(0xFF231954);
+  static Color primaryColor = const Color.fromARGB(100, 160, 197, 172);
+  static Color primaryColorDark = const Color.fromARGB(255, 160, 197, 172);
 }
 
 class Game {
@@ -114,7 +114,8 @@ class _HangmanGameState extends State<HangmanGame> {
       backgroundColor: AppColor.primaryColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back,
+              color: Colors.white), // Set the color to white
           onPressed: () {
             if (Navigator.canPop(context)) {
               Navigator.maybePop(context);
@@ -123,7 +124,10 @@ class _HangmanGameState extends State<HangmanGame> {
             }
           },
         ),
-        title: const Text("Hangman"),
+        title: const Text(
+          "Hangman",
+          style: TextStyle(color: Colors.white),
+        ),
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColor.primaryColor,
@@ -149,7 +153,7 @@ class _HangmanGameState extends State<HangmanGame> {
               ? const Text(
                   'You won!',
                   style: TextStyle(
-                    color: Colors.green,
+                    color: Colors.white,
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -159,7 +163,7 @@ class _HangmanGameState extends State<HangmanGame> {
               ? const Text(
                   'Try again!',
                   style: TextStyle(
-                    color: Colors.red,
+                    color: Color.fromARGB(255, 240, 165, 159),
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -198,7 +202,7 @@ class _HangmanGameState extends State<HangmanGame> {
                   ),
                   fillColor: Game.selectedChar.contains(e)
                       ? Colors.black87
-                      : Colors.blue,
+                      : AppColor.primaryColorDark,
                   child: Text(
                     e,
                     style: const TextStyle(
@@ -217,7 +221,8 @@ class _HangmanGameState extends State<HangmanGame> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
             ),
-            fillColor: Colors.red, // You can change the color as needed
+            fillColor: const Color.fromARGB(
+                255, 240, 165, 159), // You can change the color as needed
             child: const Text(
               'Reset',
               style: TextStyle(
