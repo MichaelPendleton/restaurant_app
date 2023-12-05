@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/screens/drawer_screen.dart';
+import 'package:restaurant_app/screens/menu_screens/food_items.dart';
 import 'package:restaurant_app/widgets/menu_item_list.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -43,10 +44,11 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
-                        selection: Selection.entree,
-                        isKidsFilter: _currentIndex == 1,
-                      ),
+                      builder: (ctx) => FoodItemsScreen(),
+                      // MenuItemList(
+                      //     selection: Selection.entree,
+                      //     isKidsFilter: _currentIndex == 1,
+                      //     ),
                     ),
                   );
                 },
@@ -72,10 +74,11 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
-                        selection: Selection.side,
-                        isKidsFilter: _currentIndex == 1,
-                      ),
+                      builder: (ctx) => FoodItemsScreen(),
+                      // MenuItemList(
+                      //   selection: Selection.side,
+                      //   isKidsFilter: _currentIndex == 1,
+                      // ),
                     ),
                   );
                 },
@@ -101,10 +104,11 @@ class _MenuScreenState extends State<MenuScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
-                        selection: Selection.beverage,
-                        isKidsFilter: _currentIndex == 1,
-                      ),
+                      builder: (ctx) => FoodItemsScreen(),
+                      // MenuItemList(
+                      //   selection: Selection.beverage,
+                      //   isKidsFilter: _currentIndex == 1,
+                      // ),
                     ),
                   );
                 },
