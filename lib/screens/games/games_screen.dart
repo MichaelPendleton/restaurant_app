@@ -90,7 +90,7 @@ class _GamesScreenState extends State<GamesScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const WordSearchGame(),
+                        builder: (context) => const WordScrambleGame(),
                       ),
                     );
                   },
@@ -109,7 +109,7 @@ class _GamesScreenState extends State<GamesScreen> {
                     shadowColor: Colors.grey,
                   ),
                   child: const Text(
-                    'Word Search',
+                    'Word Scramble',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),

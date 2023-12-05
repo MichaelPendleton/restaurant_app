@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
 
-class WordSearchGame extends StatefulWidget {
-  const WordSearchGame({Key? key}) : super(key: key);
+class WordScrambleGame extends StatefulWidget {
+  const WordScrambleGame({Key? key}) : super(key: key);
+
   @override
-  // ignore: library_private_types_in_public_api
-  _WordSearchGameState createState() => _WordSearchGameState();
+  _WordScrambleGameState createState() => _WordScrambleGameState();
 }
 
-class _WordSearchGameState extends State<WordSearchGame>
+class _WordScrambleGameState extends State<WordScrambleGame>
     with SingleTickerProviderStateMixin {
   int currentPuzzle = 0;
-
-  // /// List of Questions
-  // List<String> questions = [
-  //   "What is the name of this food?",
-  // ];
-
-  /// List of Answers
   List<String> answers = ["pasta", "soup", "salad"];
-
-  /// List of Images
   List<String> currentImages = [
     "assets/food/food-game-image-1.jpg",
     "assets/food/food-game-image-2.jpg",
@@ -29,6 +20,7 @@ class _WordSearchGameState extends State<WordSearchGame>
   List<String> userAnswers = [];
   late AnimationController _animationController;
   late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
@@ -51,14 +43,12 @@ class _WordSearchGameState extends State<WordSearchGame>
     super.dispose();
   }
 
-  /// Generate Alphabets
   void generateAlphabetOptions() {
     alphabet = answers[currentPuzzle].split('');
     alphabet.shuffle();
     userAnswers = List.filled(answers[currentPuzzle].length, '');
   }
 
-  /// Check Answer
   void checkAnswer() {
     if (userAnswers.join('') == answers[currentPuzzle]) {
       showDialog(
@@ -67,12 +57,13 @@ class _WordSearchGameState extends State<WordSearchGame>
           return AlertDialog(
             title: const Text('Correct Answer!'),
             content: const Text('Congratulations! You got it right.'),
+            backgroundColor:
+                const Color.fromARGB(255, 211, 211, 245), // Light blue color
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                   if (currentPuzzle == answers.length - 1) {
-                    // Last puzzle, show completion message
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -80,6 +71,8 @@ class _WordSearchGameState extends State<WordSearchGame>
                           title: const Text('Puzzle Completed'),
                           content:
                               const Text('You have completed all the puzzles.'),
+                          backgroundColor:
+                              const Color.fromARGB(255, 211, 211, 245),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -96,7 +89,6 @@ class _WordSearchGameState extends State<WordSearchGame>
                       },
                     );
                   } else {
-                    // Next puzzle
                     setState(() {
                       currentPuzzle++;
                       generateAlphabetOptions();
@@ -119,6 +111,8 @@ class _WordSearchGameState extends State<WordSearchGame>
           return const AlertDialog(
             title: Text('Incorrect Answer!'),
             content: Text('Please try again.'),
+            backgroundColor:
+                Color.fromARGB(255, 211, 211, 245), // Light blue color
           );
         },
       );
@@ -127,51 +121,62 @@ class _WordSearchGameState extends State<WordSearchGame>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(left: 5), // Adjust padding as needed
-          child: Text("Word Search"),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.only(right: 5), // Adjust padding as needed
-          child: Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back), // Drawer icon
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Montserrat',
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Padding(
+            padding: EdgeInsets.only(left: 5),
+            child: Text("Word Scramble"),
+          ),
+          leading: Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[400],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color.fromARGB(255, 160, 197, 172),
+                Colors.white,
+              ],
+            ),
+          ),
+          child: Center(
+            child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
+                color: const Color.fromARGB(
+                    255, 226, 237, 226), // Very light green color
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Text(
-                        // questions[currentPuzzle],
                         "What food is this?",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Colors.grey,
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -294,7 +299,6 @@ class _WordSearchGameState extends State<WordSearchGame>
                                         ),
                                       ),
                                     ),
-                                    // const SizedBox(width: 10,),
                                   ],
                                 );
                               },
@@ -309,12 +313,12 @@ class _WordSearchGameState extends State<WordSearchGame>
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          backgroundColor: Colors.black,
+                          backgroundColor: Colors.grey,
                           padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                         child: const Text(
                           'Check Answer',
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
                     ],
@@ -322,7 +326,7 @@ class _WordSearchGameState extends State<WordSearchGame>
                 ),
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
