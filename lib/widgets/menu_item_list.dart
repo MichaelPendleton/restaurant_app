@@ -122,7 +122,9 @@ class _MenuItemListState extends State<MenuItemList> {
 
     // Filter the menu items based on the selected category (Kids or Adults)
     final filteredMenuItems = _menuItems
-        .where((item) => widget.isKidsFilter ? item.isKids : !item.isKids)
+        .where((item) =>
+            (widget.isKidsFilter ? item.isKids : !item.isKids) &&
+            (widget.selection.name == item.type.title))
         .toList();
 
     if (_isLoading) {
