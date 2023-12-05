@@ -97,6 +97,25 @@ class _MenuItemListState extends State<MenuItemList> {
     });
   }
 
+  void _removeItem(MenuItem item) async {
+    final index = _menuItems.indexOf(item);
+    setState(() {
+      _menuItems.remove(item);
+    });
+
+    final url = Uri.https('csc322-restaurant-app-default-rtdb.firebaseio.com',
+        'menu/${item.id}.json');
+
+    final response = await http.delete(url);
+
+    if (response.statusCode >= 400) {
+      // Optional: Show error message
+      setState(() {
+        _menuItems.insert(index, item);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget content = const Center(child: Text('No items added yet.'));
@@ -117,8 +136,15 @@ class _MenuItemListState extends State<MenuItemList> {
           Expanded(
             child: ListView.builder(
               itemCount: filteredMenuItems.length,
-              itemBuilder: (context, index) {
-                return Card(
+              itemBuilder: (context, index) => Dismissible(
+                background: Container(
+                  color: Colors.red.withOpacity(0.75),
+                ),
+                onDismissed: (direction) {
+                  _removeItem(_menuItems[index]);
+                },
+                key: ValueKey(_menuItems[index].id),
+                child: Card(
                   margin: const EdgeInsets.all(8),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
@@ -157,8 +183,8 @@ class _MenuItemListState extends State<MenuItemList> {
                       ),
                     ],
                   ),
-                );
-              },
+                ),
+              ),
             ),
           ),
         ],
