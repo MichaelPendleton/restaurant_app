@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:restaurant_app/data/types.dart';
 
 import 'package:restaurant_app/models/menu_item.dart';
+import 'package:restaurant_app/models/menu_item_type.dart';
 import 'package:restaurant_app/widgets/new_menu_item.dart';
 
 enum Selection { entree, side, beverage }
@@ -116,15 +117,28 @@ class _MenuItemListState extends State<MenuItemList> {
     }
   }
 
+  // Helper function to convert type title string to Selection enum
+  Selection _getTypeEnum(MenuItemType menuItemType) {
+    if (menuItemType.title == types[MenuItemTypes.entree]!.title) {
+      return Selection.entree;
+    } else if (menuItemType.title == types[MenuItemTypes.side]!.title) {
+      return Selection.side;
+    } else if (menuItemType.title == types[MenuItemTypes.beverage]!.title) {
+      return Selection.beverage;
+    } else {
+      // Default to entree if not recognized
+      return Selection.entree;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget content = const Center(child: Text('No items added yet.'));
-
     // Filter the menu items based on the selected category (Kids or Adults)
     final filteredMenuItems = _menuItems
         .where((item) =>
             (widget.isKidsFilter ? item.isKids : !item.isKids) &&
-            (widget.selection.name == item.type.title))
+            (widget.selection == _getTypeEnum(item.type)))
         .toList();
 
     if (_isLoading) {
