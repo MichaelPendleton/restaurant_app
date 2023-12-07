@@ -39,92 +39,185 @@ class _MenuScreenState extends State<MenuScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
-                        selection: Selection.entree,
-                        isKidsFilter: _currentIndex == 1,
+              SizedBox(
+                width: 290,
+                height: 130,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) => MenuItemList(
+                          selection: Selection.entree,
+                          isKidsFilter: _currentIndex == 1,
+                        ),
                       ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 160, 197, 172),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 24),
-                  backgroundColor: const Color.fromARGB(255, 160, 197, 172),
-                  padding: const EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    elevation: 8.0,
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                    shadowColor: Colors.grey,
                   ),
-                  elevation: 8.0,
-                ).merge(
-                  ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Colors.white,
-                    ),
+                  child: const Text(
+                    'Entrees',
+                    style: TextStyle(fontSize: 30),
                   ),
                 ),
-                child: const Text('Entrees'),
               ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
-                        selection: Selection.side,
-                        isKidsFilter: _currentIndex == 1,
+              const SizedBox(height: 45),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (ctx) => MenuItemList(
+              //           selection: Selection.entree,
+              //           isKidsFilter: _currentIndex == 1,
+              //         ),
+              //       ),
+              //     );
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     textStyle: const TextStyle(fontSize: 24),
+              //     backgroundColor: const Color.fromARGB(255, 160, 197, 172),
+              //     padding: const EdgeInsets.all(16),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15.0),
+              //     ),
+              //     elevation: 8.0,
+              //   ).merge(
+              //     ButtonStyle(
+              //       foregroundColor: MaterialStateProperty.all<Color>(
+              //         Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              //   child: const Text('Entrees'),
+              // ),
+              // const SizedBox(height: 16),
+              SizedBox(
+                width: 290,
+                height: 130,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) => MenuItemList(
+                          selection: Selection.side,
+                          isKidsFilter: _currentIndex == 1,
+                        ),
                       ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 163, 163, 211),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 24),
-                  backgroundColor: const Color.fromARGB(255, 163, 163, 211),
-                  padding: const EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    elevation: 8.0,
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                    shadowColor: Colors.grey,
                   ),
-                  elevation: 8.0,
-                ).merge(
-                  ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Colors.white,
-                    ),
+                  child: const Text(
+                    'Sides',
+                    style: TextStyle(fontSize: 30),
                   ),
                 ),
-                child: const Text('Sides'),
               ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => MenuItemList(
-                        selection: Selection.beverage,
-                        isKidsFilter: _currentIndex == 1,
+              const SizedBox(height: 45),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (ctx) => MenuItemList(
+              //           selection: Selection.side,
+              //           isKidsFilter: _currentIndex == 1,
+              //         ),
+              //       ),
+              //     );
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     textStyle: const TextStyle(fontSize: 24),
+              //     backgroundColor: const Color.fromARGB(255, 163, 163, 211),
+              //     padding: const EdgeInsets.all(16),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15.0),
+              //     ),
+              //     elevation: 8.0,
+              //   ).merge(
+              //     ButtonStyle(
+              //       foregroundColor: MaterialStateProperty.all<Color>(
+              //         Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              //   child: const Text('Sides'),
+              // ),
+              // const SizedBox(height: 16),
+              SizedBox(
+                width: 290,
+                height: 130,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) => MenuItemList(
+                          selection: Selection.beverage,
+                          isKidsFilter: _currentIndex == 1,
+                        ),
                       ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        Colors.white, // Set the background color to white
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 24),
-                  backgroundColor:
-                      Colors.white, // Set the background color to white
-                  padding: const EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    elevation: 8.0,
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                    shadowColor: Colors.grey,
                   ),
-                  elevation: 8.0,
-                  // shadowColor: Colors.red,
-                ).merge(
-                  const ButtonStyle(
-                      // No need to change the foregroundColor for normal font color
-                      ),
+                  child: const Text(
+                    'Beverages',
+                    style: TextStyle(fontSize: 30),
+                  ),
                 ),
-                child: const Text('Beverages'),
               ),
+              // const SizedBox(height: 45),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (ctx) => MenuItemList(
+              //           selection: Selection.beverage,
+              //           isKidsFilter: _currentIndex == 1,
+              //         ),
+              //       ),
+              //     );
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     textStyle: const TextStyle(fontSize: 24),
+              //     backgroundColor:
+              //         Colors.white, // Set the background color to white
+              //     padding: const EdgeInsets.all(16),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15.0),
+              //     ),
+              //     elevation: 8.0,
+              //     // shadowColor: Colors.red,
+              //   ).merge(
+              //     const ButtonStyle(
+              //         // No need to change the foregroundColor for normal font color
+              //         ),
+              //   ),
+              //   child: const Text('Beverages'),
+              // ),
             ],
           ),
         ),

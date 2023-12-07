@@ -40,7 +40,7 @@ class _GamesScreenState extends State<GamesScreen> {
           child: DrawerScreen(),
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -54,93 +54,93 @@ class _GamesScreenState extends State<GamesScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigate to the Tic Tac Toe screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TicTacToeGame(),
+                SizedBox(
+                  width: 290,
+                  height: 130,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Navigate to the Tic Tac Toe screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TicTacToeGame(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color.fromARGB(255, 160, 197, 172),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color.fromARGB(255, 160, 197, 172),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0,
-                      vertical: 30.0,
+                      elevation: 8.0, // Text color when pressed
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                      shadowColor: const Color.fromARGB(255, 160, 197, 172),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                    child: const Text(
+                      'Tic Tac Toe',
+                      style: TextStyle(fontSize: 30),
                     ),
-                    elevation: 8.0, // Text color when pressed
-                    textStyle: Theme.of(context).textTheme.labelLarge,
-                    shadowColor: const Color.fromARGB(255, 160, 197, 172),
-                  ),
-                  child: const Text(
-                    'Tic Tac Toe',
-                    style: TextStyle(fontSize: 16),
                   ),
                 ),
-                const SizedBox(height: 20), // Increase spacing between buttons
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigate to the Word Search screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const WordScrambleGame(),
+                const SizedBox(height: 45), // Increase spacing between buttons
+                SizedBox(
+                  width: 290,
+                  height: 130,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Navigate to the Word Search screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WordScrambleGame(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color.fromARGB(255, 163, 163, 211),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color.fromARGB(255, 163, 163, 211),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0,
-                      vertical: 30.0,
+                      elevation: 8.0,
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                      shadowColor: Colors.grey,
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                    child: const Text(
+                      'Word Scramble',
+                      style: TextStyle(fontSize: 30),
                     ),
-                    elevation: 8.0,
-                    textStyle: Theme.of(context).textTheme.labelLarge,
-                    shadowColor: Colors.grey,
-                  ),
-                  child: const Text(
-                    'Word Scramble',
-                    style: TextStyle(fontSize: 16),
                   ),
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigate to the Hangman screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HangmanGame(),
+                const SizedBox(height: 45),
+                SizedBox(
+                  width: 290,
+                  height: 130,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Navigate to the Hangman screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HangmanGame(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      // foregroundColor: Colors.black,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0,
-                      vertical: 30.0,
+                      elevation: 8.0,
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                      shadowColor: Colors.white,
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                    child: const Text(
+                      'Hangman',
+                      style: TextStyle(fontSize: 30),
                     ),
-                    elevation: 8.0,
-                    textStyle: Theme.of(context).textTheme.labelLarge,
-                    shadowColor: Colors.white,
-                  ),
-                  child: const Text(
-                    'Hangman',
-                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               ],
