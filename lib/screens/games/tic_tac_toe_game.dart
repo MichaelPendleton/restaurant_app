@@ -18,9 +18,9 @@ class TicTacToeGame extends StatefulWidget {
 
 int turnNumber = 0;
 
-Color blueColor = AppColor.blueColor;
+Color blueColor = Color.fromARGB(255, 33, 35, 167);
 Color redColor = const Color.fromARGB(255, 167, 33, 33);
-Color greyColor = const Color.fromARGB(255, 220, 220, 220); // Light Grey
+Color greyColor = Colors.white;
 
 bool gameOver = false;
 String gameStatus = 'Blue\'s Turn';
@@ -137,6 +137,7 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
     var boxSize = (MediaQuery.of(context).size.width / 20) * 5;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Padding(
@@ -163,50 +164,91 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Visibility(
-                  visible: gameOver,
-                  child: _styledMessage(
-                    gameStatus,
-                    gameStatus == 'BLUE WON!!!'
-                        ? AppColor.blueColor
-                        : gameStatus == 'RED WON!!!'
-                            ? redColor
-                            : AppColor.greenColor,
-                  ),
+                // Visibility(
+                //   visible: gameOver,
+                //   child: _styledMessage(
+                //     gameStatus,
+                //     gameStatus == 'BLUE WON!!!'
+                //         ? AppColor.blueColor
+                //         : gameStatus == 'RED WON!!!'
+                //             ? redColor
+                //             : AppColor.greenColor,
+                //   ),
+                // ),
+
+                // Visibility(
+                //   visible: gameOver,
+                //   child: const SizedBox(height: 20),
+                // ),
+                // Text(
+                //   gameOver
+                //       ? ''
+                //       : (turnNumber % 2 == 0 ? 'Blue\'s Turn' : 'Red\'s Turn'),
+                //   style: TextStyle(
+                //     fontSize: 25,
+                //     fontWeight: FontWeight.bold,
+                //     color: turnNumber % 2 == 0 ? blueColor : redColor,
+                //   ),
+                // ),
+                // Visibility(
+                //   visible: gameOver,
+                //   child: TextButton.icon(
+                //     onPressed: () {
+                //       setState(() {
+                //         for (int i = 0; i < boardColors.length; i++) {
+                //           boardColors[i] = greyColor;
+                //         }
+                //         turnNumber = 0;
+                //         gameOver = false;
+                //       });
+                //     },
+                //     label: Text(
+                //       'Restart Game',
+                //       style: const TextStyle(color: Colors.black),
+                //     ),
+                //     icon:
+                //         const Icon(Icons.replay_outlined, color: Colors.black),
+                //   ),
+                // ),
+                // Visibility(
+                //   visible: !gameOver,
+                //   child: const SizedBox(height: 100),
+                // ),
+                Card(
+                  color: gameOver
+                      ? (gameStatus == 'Cat\'s Game... Tie.'
+                          ? const Color.fromARGB(255, 40, 116, 64)
+                          : (turnNumber % 2 == 0 ? redColor : blueColor))
+                      : (turnNumber % 2 == 0 ? blueColor : redColor),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero),
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: 65,
+                      child: Center(
+                        child: gameOver
+                            ? Text(
+                                gameStatus,
+                                style: const TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            : null,
+                      )
+                      //     : const Center(
+                      //         child: Text(
+                      //           'Blue Won!!!',
+                      //           style: TextStyle(
+                      //               fontSize: 30,
+                      //               color: Colors.white,
+                      //               fontWeight: FontWeight.bold),
+                      //         ),
+                      //       ))
+                      // : null,
+                      ),
                 ),
-                Visibility(
-                  visible: gameOver,
-                  child: const SizedBox(height: 20),
-                ),
-                Text(
-                  gameOver
-                      ? ''
-                      : (turnNumber % 2 == 0 ? 'Blue\'s Turn' : 'Red\'s Turn'),
-                ),
-                Visibility(
-                  visible: gameOver,
-                  child: TextButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        for (int i = 0; i < boardColors.length; i++) {
-                          boardColors[i] = greyColor;
-                        }
-                        turnNumber = 0;
-                        gameOver = false;
-                      });
-                    },
-                    label: Text(
-                      'Restart Game',
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                    icon:
-                        const Icon(Icons.replay_outlined, color: Colors.black),
-                  ),
-                ),
-                Visibility(
-                  visible: !gameOver,
-                  child: const SizedBox(height: 100),
-                ),
+                const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -231,7 +273,83 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
                     _drawBox(boxSize, 8),
                   ],
                 ),
-                const SizedBox(height: 150),
+                const SizedBox(height: 50),
+                Card(
+                  color: gameOver
+                      ? Color.fromARGB(255, 40, 116, 64)
+                      : (turnNumber % 2 == 0 ? blueColor : redColor),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 65,
+                    child: gameOver
+                        ? ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                for (int i = 0; i < boardColors.length; i++) {
+                                  boardColors[i] = greyColor;
+                                }
+                                turnNumber = 0;
+                                gameOver = false;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor:
+                                  (gameStatus == 'Cat\'s Game... Tie.'
+                                      ? Color.fromARGB(255, 40, 116, 64)
+                                      : (turnNumber % 2 == 0
+                                          ? redColor
+                                          : blueColor)),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero,
+                              ),
+                              // elevation: 8.0,
+                              textStyle: Theme.of(context).textTheme.labelLarge,
+                              // shadowColor: Colors.grey,
+                            ),
+                            child: const Text(
+                              'Restart',
+                              style: TextStyle(fontSize: 30),
+                            ),
+                          )
+                        : null,
+                  ),
+                ),
+                // SizedBox(
+                //   width: MediaQuery.of(context).size.width * 0.8,
+                //   height: 80,
+                //   child: ,
+                // child: ElevatedButton(
+                //   onPressed: () {
+                //     if (gameOver) {
+                //       for (int i = 0; i < boardColors.length; i++) {
+                //         boardColors[i] = greyColor;
+                //       }
+                //       turnNumber = 0;
+                //       gameOver = false;
+                //     }
+                //   },
+                //   style: ElevatedButton.styleFrom(
+                //     foregroundColor: Colors.white,
+                //     backgroundColor:
+                //         turnNumber % 2 == 0 ? blueColor : redColor,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.zero,
+                //     ),
+                //     // elevation: 8.0,
+                //     textStyle: Theme.of(context).textTheme.labelLarge,
+                //     // shadowColor: Colors.grey,
+                //   ),
+                //   child: turnNumber % 2 == 0
+                //       ? const Text(
+                //           'Restart',
+                //           style: TextStyle(fontSize: 30),
+                //         )
+                //       : null,
+                // ),
+                // ),
               ],
             ),
           ),

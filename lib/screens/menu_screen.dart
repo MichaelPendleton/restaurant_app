@@ -1,8 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/main.dart';
+import 'package:restaurant_app/models/menu_item.dart';
 import 'package:restaurant_app/screens/drawer_screen.dart';
 import 'package:restaurant_app/widgets/menu_item_list.dart';
+import 'package:restaurant_app/widgets/new_menu_item.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -19,6 +22,32 @@ class _MenuScreenState extends State<MenuScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Menu'),
+        backgroundColor:
+            adminMode ? const Color.fromARGB(255, 226, 87, 87) : null,
+        actions: [
+          Visibility(
+            visible: adminMode,
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      adminMode = false;
+                    });
+                  },
+                  child: const Text(
+                    'Exit Admin Mode',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 20),
+              ],
+            ),
+          ),
+        ],
       ),
       drawer: const Drawer(
         child: DrawerScreen(),
@@ -34,7 +63,6 @@ class _MenuScreenState extends State<MenuScreen> {
             ],
           ),
         ),
-        // Remove the background color property
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,35 +98,6 @@ class _MenuScreenState extends State<MenuScreen> {
                 ),
               ),
               const SizedBox(height: 45),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     Navigator.of(context).push(
-              //       MaterialPageRoute(
-              //         builder: (ctx) => MenuItemList(
-              //           selection: Selection.entree,
-              //           isKidsFilter: _currentIndex == 1,
-              //         ),
-              //       ),
-              //     );
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     textStyle: const TextStyle(fontSize: 24),
-              //     backgroundColor: const Color.fromARGB(255, 160, 197, 172),
-              //     padding: const EdgeInsets.all(16),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(15.0),
-              //     ),
-              //     elevation: 8.0,
-              //   ).merge(
-              //     ButtonStyle(
-              //       foregroundColor: MaterialStateProperty.all<Color>(
-              //         Colors.white,
-              //       ),
-              //     ),
-              //   ),
-              //   child: const Text('Entrees'),
-              // ),
-              // const SizedBox(height: 16),
               SizedBox(
                 width: 290,
                 height: 130,
@@ -130,35 +129,6 @@ class _MenuScreenState extends State<MenuScreen> {
                 ),
               ),
               const SizedBox(height: 45),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     Navigator.of(context).push(
-              //       MaterialPageRoute(
-              //         builder: (ctx) => MenuItemList(
-              //           selection: Selection.side,
-              //           isKidsFilter: _currentIndex == 1,
-              //         ),
-              //       ),
-              //     );
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     textStyle: const TextStyle(fontSize: 24),
-              //     backgroundColor: const Color.fromARGB(255, 163, 163, 211),
-              //     padding: const EdgeInsets.all(16),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(15.0),
-              //     ),
-              //     elevation: 8.0,
-              //   ).merge(
-              //     ButtonStyle(
-              //       foregroundColor: MaterialStateProperty.all<Color>(
-              //         Colors.white,
-              //       ),
-              //     ),
-              //   ),
-              //   child: const Text('Sides'),
-              // ),
-              // const SizedBox(height: 16),
               SizedBox(
                 width: 290,
                 height: 130,
@@ -189,35 +159,6 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                 ),
               ),
-              // const SizedBox(height: 45),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     Navigator.of(context).push(
-              //       MaterialPageRoute(
-              //         builder: (ctx) => MenuItemList(
-              //           selection: Selection.beverage,
-              //           isKidsFilter: _currentIndex == 1,
-              //         ),
-              //       ),
-              //     );
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     textStyle: const TextStyle(fontSize: 24),
-              //     backgroundColor:
-              //         Colors.white, // Set the background color to white
-              //     padding: const EdgeInsets.all(16),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(15.0),
-              //     ),
-              //     elevation: 8.0,
-              //     // shadowColor: Colors.red,
-              //   ).merge(
-              //     const ButtonStyle(
-              //         // No need to change the foregroundColor for normal font color
-              //         ),
-              //   ),
-              //   child: const Text('Beverages'),
-              // ),
             ],
           ),
         ),

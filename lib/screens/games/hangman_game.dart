@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/models/words.dart';
@@ -7,6 +8,8 @@ class AppColor {
   static Color primaryColorDark = const Color.fromARGB(255, 160, 197, 172);
 }
 
+bool _gameOver = false;
+
 class Game {
   static int tries = 0;
   static List<String> selectedChar = [];
@@ -15,7 +18,7 @@ class Game {
 Widget figureImage(bool visible, String path) {
   return Visibility(
     visible: visible,
-    child: Container(
+    child: SizedBox(
       width: 250,
       height: 250,
       child: Image.asset(path),
@@ -27,19 +30,22 @@ Widget letter(String character, bool hidden) {
   return Container(
     height: 65,
     width: 50,
-    padding: const EdgeInsets.all(12.0),
+    // padding: const EdgeInsets.only(),
     decoration: BoxDecoration(
       color: AppColor.primaryColorDark,
       borderRadius: BorderRadius.circular(4.0),
     ),
     child: Visibility(
       visible: !hidden,
-      child: Text(
-        character,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 40.0,
+      child: Container(
+        alignment: Alignment.center,
+        child: Text(
+          character,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 40.0,
+          ),
         ),
       ),
     ),
@@ -91,17 +97,26 @@ class _HangmanGameState extends State<HangmanGame> {
   }
 
   bool isWordGuessed() {
+    _gameOver = true;
     return word.split('').every((letter) {
       return Game.selectedChar.contains(letter.toUpperCase());
     });
   }
 
   bool isGameOver() {
-    return Game.tries >= 6; // Adjust the threshold as needed
+    if (Game.tries >= 6) {
+      _gameOver = true;
+      print(true);
+      return true;
+    } else {
+      print(false);
+      return false;
+    } // Adjust the threshold as needed
   }
 
   void resetGame() {
     setState(() {
+      _gameOver = false;
       word = _getRandomWord().toUpperCase();
       Game.tries = 0;
       Game.selectedChar.clear();
@@ -113,40 +128,45 @@ class _HangmanGameState extends State<HangmanGame> {
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back,
-              color: Colors.white), // Set the color to white
-          onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.maybePop(context);
-            } else {
-              print("Nowhere to pop");
-            }
-          },
+        title: const Padding(
+          padding: EdgeInsets.only(left: 5),
+          child: Text("Hangman"),
         ),
-        title: const Text(
-          "Hangman",
-          style: TextStyle(color: Colors.white),
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         ),
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: AppColor.primaryColor,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Stack(
-              children: [
-                figureImage(Game.tries >= 0, "assets/hang.png"),
-                figureImage(Game.tries >= 1, "assets/head.png"),
-                figureImage(Game.tries >= 2, "assets/body.png"),
-                figureImage(Game.tries >= 3, "assets/ra.png"),
-                figureImage(Game.tries >= 4, "assets/la.png"),
-                figureImage(Game.tries >= 5, "assets/rl.png"),
-                figureImage(Game.tries >= 6, "assets/ll.png"),
-              ],
+          const SizedBox(
+            height: 5,
+          ),
+          SizedBox(
+            height: 220,
+            child: Center(
+              child: Stack(
+                children: [
+                  figureImage(Game.tries >= 0, "assets/hang.png"),
+                  figureImage(Game.tries >= 1, "assets/head.png"),
+                  figureImage(Game.tries >= 2, "assets/body.png"),
+                  figureImage(Game.tries >= 3, "assets/ra.png"),
+                  figureImage(Game.tries >= 4, "assets/la.png"),
+                  figureImage(Game.tries >= 5, "assets/rl.png"),
+                  figureImage(Game.tries >= 6, "assets/ll.png"),
+                ],
+              ),
             ),
           ),
           isWordGuessed()
@@ -158,17 +178,28 @@ class _HangmanGameState extends State<HangmanGame> {
                     fontWeight: FontWeight.bold,
                   ),
                 )
-              : Container(),
+              : const Text(
+                  ' ',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                  ),
+                ),
           isGameOver()
               ? const Text(
-                  'Try again!',
+                  'So Close! Try again!',
                   style: TextStyle(
                     color: Color.fromARGB(255, 240, 165, 159),
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                   ),
                 )
-              : Container(),
+              : const Text(
+                  ' ',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                  ),
+                ),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: word
@@ -179,7 +210,7 @@ class _HangmanGameState extends State<HangmanGame> {
           ),
           SizedBox(
             width: double.infinity,
-            height: 250.0,
+            height: 230.0,
             child: GridView.count(
               crossAxisCount: 7,
               mainAxisSpacing: 8.0,
@@ -187,7 +218,7 @@ class _HangmanGameState extends State<HangmanGame> {
               padding: const EdgeInsets.all(8.0),
               children: alphabets.map((e) {
                 return RawMaterialButton(
-                  onPressed: Game.selectedChar.contains(e)
+                  onPressed: Game.selectedChar.contains(e) || isGameOver()
                       ? null
                       : () {
                           setState(() {
@@ -203,19 +234,21 @@ class _HangmanGameState extends State<HangmanGame> {
                   fillColor: Game.selectedChar.contains(e)
                       ? Colors.black87
                       : AppColor.primaryColorDark,
-                  child: Text(
-                    e,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      e,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 );
               }).toList(),
             ),
           ),
-          // Reset button
           RawMaterialButton(
             onPressed: resetGame,
             shape: RoundedRectangleBorder(
@@ -232,6 +265,7 @@ class _HangmanGameState extends State<HangmanGame> {
               ),
             ),
           ),
+          const SizedBox(height: 20),
         ],
       ),
     );

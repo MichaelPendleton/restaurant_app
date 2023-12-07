@@ -194,7 +194,7 @@ class _WordScrambleGameState extends State<WordScrambleGame>
                       ),
                       const SizedBox(height: 60),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: List.generate(userAnswers.length, (index) {
                           return DragTarget<String>(
                             builder: (context, candidateData, rejectedData) {
@@ -208,8 +208,9 @@ class _WordScrambleGameState extends State<WordScrambleGame>
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(
-                                        color: Colors.grey,
-                                        width: 1,
+                                        color: const Color.fromARGB(
+                                            255, 160, 197, 172),
+                                        width: 2,
                                       ),
                                     ),
                                     child: Text(
@@ -218,9 +219,6 @@ class _WordScrambleGameState extends State<WordScrambleGame>
                                           : userAnswers[index],
                                       style: const TextStyle(fontSize: 24),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
                                   ),
                                 ],
                               );
@@ -235,11 +233,10 @@ class _WordScrambleGameState extends State<WordScrambleGame>
                       ),
                       const SizedBox(height: 16),
                       SizedBox(
-                        width: 500,
+                        // width: 500,
                         height: 60,
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             ListView.builder(
                               shrinkWrap: true,
@@ -253,15 +250,18 @@ class _WordScrambleGameState extends State<WordScrambleGame>
                                       data: alphabet[index],
                                       feedback: Material(
                                         child: Container(
+                                          padding: EdgeInsets.zero,
                                           height: 50,
                                           width: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.white,
+                                            // color: const Color.fromARGB(
+                                            //     255, 207, 74, 74),
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             border: Border.all(
-                                              color: Colors.grey,
-                                              width: 1,
+                                              color: const Color.fromARGB(
+                                                  255, 160, 197, 172),
+                                              width: 2,
                                             ),
                                           ),
                                           child: Center(
@@ -276,8 +276,9 @@ class _WordScrambleGameState extends State<WordScrambleGame>
                                       childWhenDragging: Container(),
                                       child: Material(
                                         child: Container(
-                                          height: 50,
-                                          width: 50,
+                                          padding: EdgeInsets.zero,
+                                          height: 45,
+                                          width: 45,
                                           margin: const EdgeInsets.only(
                                               left: 5, right: 5),
                                           decoration: BoxDecoration(
@@ -285,8 +286,9 @@ class _WordScrambleGameState extends State<WordScrambleGame>
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             border: Border.all(
-                                              color: Colors.grey,
-                                              width: 1,
+                                              color: const Color.fromARGB(
+                                                  255, 160, 197, 172),
+                                              width: 2,
                                             ),
                                           ),
                                           child: Center(
@@ -310,15 +312,18 @@ class _WordScrambleGameState extends State<WordScrambleGame>
                       ElevatedButton(
                         onPressed: checkAnswer,
                         style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          backgroundColor: Colors.grey,
+                          backgroundColor:
+                              const Color.fromARGB(255, 160, 197, 172),
                           padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                         child: const Text(
                           'Check Answer',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 18),
+                          // Color.fromARGB(255, 211, 211, 245),
                         ),
                       ),
                     ],

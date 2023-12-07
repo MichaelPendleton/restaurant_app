@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/main.dart';
 import 'package:restaurant_app/screens/drawer_screen.dart';
 import 'package:restaurant_app/screens/games/hangman_game.dart';
 import 'package:restaurant_app/screens/games/tic_tac_toe_game.dart';
@@ -15,6 +16,7 @@ class _GamesScreenState extends State<GamesScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color.fromARGB(
             255, 160, 197, 172), // Set primary color to #FF5733
@@ -35,6 +37,32 @@ class _GamesScreenState extends State<GamesScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Games'),
+          backgroundColor:
+              adminMode ? const Color.fromARGB(255, 226, 87, 87) : null,
+          actions: [
+            Visibility(
+              visible: adminMode,
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        adminMode = false;
+                      });
+                    },
+                    child: const Text(
+                      'Exit Admin Mode',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                ],
+              ),
+            ),
+          ],
         ),
         drawer: const Drawer(
           child: DrawerScreen(),

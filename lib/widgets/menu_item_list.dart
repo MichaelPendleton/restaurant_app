@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:restaurant_app/data/types.dart';
+import 'package:restaurant_app/main.dart';
 
 import 'package:restaurant_app/models/menu_item.dart';
 import 'package:restaurant_app/models/menu_item_type.dart';
@@ -131,6 +132,75 @@ class _MenuItemListState extends State<MenuItemList> {
     }
   }
 
+  Widget _menuItemCards(
+      BuildContext context, List filteredMenuItems, int index) {
+    return Stack(children: [
+      Card(
+        margin: const EdgeInsets.all(10),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        color: const Color.fromARGB(255, 163, 163, 211),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(filteredMenuItems[index].name,
+                style:
+                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Price: \$${filteredMenuItems[index].price.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                // const SizedBox(width: 20),
+                // Visibility(
+                //   visible: filteredMenuItems[index].glutenFree,
+                //   child: SizedBox(
+                //     width: 20,
+                //     child: Image.asset(
+                //       'assets/gluten_free.png',
+                //       width: 350,
+                //       fit: BoxFit.cover,
+                //     ),
+                //   ),
+                // ),
+                // Text(
+                //   filteredMenuItems[index].glutenFree
+                //       ? 'Gluten Free'
+                //       : 'Contains Gluten',
+                //   style:
+                //       const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                // ),
+                // const SizedBox(width: 20),
+                // Text(
+                //   _filteredMenuItems[index].isKids ? 'Kid ' : 'Adult',
+                //   style: const TextStyle(
+                //       fontSize: 20, fontWeight: FontWeight.bold),
+                // ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      Visibility(
+        visible: filteredMenuItems[index].glutenFree,
+        child: Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.95 - 32, top: 39),
+          child: SizedBox(
+            width: 35,
+            child: Image.asset(
+              'assets/gluten_free.png',
+              width: 350,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget content = const Center(child: Text('No items added yet.'));
@@ -152,55 +222,18 @@ class _MenuItemListState extends State<MenuItemList> {
           Expanded(
             child: ListView.builder(
               itemCount: filteredMenuItems.length,
-              itemBuilder: (context, index) => Dismissible(
-                background: Container(
-                  color: Colors.red.withOpacity(0.75),
-                ),
-                onDismissed: (direction) {
-                  _removeItem(_menuItems[index]);
-                },
-                key: ValueKey(_menuItems[index].id),
-                child: Card(
-                  margin: const EdgeInsets.all(8),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  color: Theme.of(context)
-                      .primaryColor, // Change later based on decided theme
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(filteredMenuItems[index].name,
-                          style: const TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold)),
-                      const SizedBox(width: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Price: \$${filteredMenuItems[index].price.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(width: 20),
-                          Text(
-                            filteredMenuItems[index].glutenFree
-                                ? 'Gluten Free'
-                                : 'Contains Gluten',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          // const SizedBox(width: 20),
-                          // Text(
-                          //   _filteredMenuItems[index].isKids ? 'Kid ' : 'Adult',
-                          //   style: const TextStyle(
-                          //       fontSize: 20, fontWeight: FontWeight.bold),
-                          // ),
-                        ],
+              itemBuilder: (context, index) => adminMode
+                  ? Dismissible(
+                      background: Container(
+                        color: Colors.red.withOpacity(0.75),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                      onDismissed: (direction) {
+                        _removeItem(_menuItems[index]);
+                      },
+                      key: ValueKey(_menuItems[index].id),
+                      child: _menuItemCards(context, filteredMenuItems, index),
+                    )
+                  : _menuItemCards(context, filteredMenuItems, index),
             ),
           ),
         ],
@@ -210,9 +243,18 @@ class _MenuItemListState extends State<MenuItemList> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Menu'),
-          //Temporary Add Menu Item Button
+          backgroundColor:
+              adminMode ? const Color.fromARGB(255, 226, 87, 87) : null,
           actions: [
-            IconButton(onPressed: _addItem, icon: const Icon(Icons.add))
+            // Opens form to add a new menu item to firebase
+            Visibility(
+              visible: adminMode,
+              child: IconButton(
+                onPressed: _addItem,
+                icon: const Icon(Icons.add),
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
         body: content);

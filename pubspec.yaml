@@ -72,6 +72,9 @@ flutter:
     - assets/food/food-game-image-1.jpg
     - assets/food/food-game-image-2.jpg
     - assets/food/food-game-image-3.jpg
+    - assets/diner_logo.png
+    - assets/diner_logo_slogan.png
+    - assets/gluten_free.png
 
   fonts:
     - family: Montserrat

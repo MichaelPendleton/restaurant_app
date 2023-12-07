@@ -84,7 +84,14 @@ class _NewMenuItemState extends State<NewMenuItem> {
               TextFormField(
                 maxLength: 50,
                 decoration: const InputDecoration(
-                  label: Text('Name'),
+                  label: Text(
+                    'Name',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 163, 163, 211),
+                    ),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null ||
@@ -99,14 +106,22 @@ class _NewMenuItemState extends State<NewMenuItem> {
                   _enteredName = value!;
                 },
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
+                    // flex: 2,
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        label: Text('Price'),
+                        label: Text(
+                          'Price',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 163, 163, 211),
+                          ),
+                        ),
                       ),
                       keyboardType:
                           const TextInputType.numberWithOptions(decimal: true),
@@ -126,13 +141,21 @@ class _NewMenuItemState extends State<NewMenuItem> {
                   ),
                   const SizedBox(width: 10),
                   Expanded(
+                    // flex: 3,
                     child: DropdownButtonFormField(
                       value: _selectedMenuItemType,
                       items: [
                         for (final menuItemType in types.entries)
                           DropdownMenuItem(
                             value: menuItemType.value,
-                            child: Text(menuItemType.value.title),
+                            child: Text(
+                              menuItemType.value.title,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 163, 163, 211),
+                              ),
+                            ),
                           ),
                       ],
                       onChanged: (value) {
@@ -144,68 +167,92 @@ class _NewMenuItemState extends State<NewMenuItem> {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
-                    child: DropdownButtonFormField(
+                    child: CheckboxListTile(
+                      controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text(
+                        'For Kids',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 163, 163, 211),
+                        ),
+                      ),
                       value: _selectedIsKids,
-                      items: const [
-                        DropdownMenuItem(
-                          value: false,
-                          child: Text('Not Kids'),
-                        ),
-                        DropdownMenuItem(
-                          value: true,
-                          child: Text('Is Kids'),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedIsKids = value!;
-                        });
+                      onChanged: (newValue) {
+                        setState(
+                          () {
+                            _selectedIsKids = !_selectedIsKids;
+                          },
+                        );
                       },
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: DropdownButtonFormField(
+                    child: CheckboxListTile(
+                      controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text(
+                        'Gluten Free',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 163, 163, 211),
+                        ),
+                      ),
                       value: _selectedIsGlutenFree,
-                      items: const [
-                        DropdownMenuItem(
-                          value: false,
-                          child: Text('Gluten Free'),
-                        ),
-                        DropdownMenuItem(
-                          value: true,
-                          child: Text('Has Gluten'),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedIsGlutenFree = value!;
-                        });
+                      onChanged: (newValue) {
+                        setState(
+                          () {
+                            _selectedIsGlutenFree = !_selectedIsGlutenFree;
+                          },
+                        );
                       },
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: _isSending
-                    ? null
-                    : () {
-                        _saveMenuItem();
-                      },
-                child: _isSending
-                    ? const SizedBox(
-                        height: 16,
-                        width: 16,
-                        child: CircularProgressIndicator(),
-                      )
-                    : const Text('Add Item'),
-              )
+              const SizedBox(height: 30),
+              SizedBox(
+                width: 150,
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: _isSending
+                      ? null
+                      : () {
+                          _saveMenuItem();
+                        },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 160, 197, 172),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    elevation: 8.0,
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                    shadowColor: Colors.grey,
+                  ),
+                  child: _isSending
+                      ? const SizedBox(
+                          height: 16,
+                          width: 16,
+                          child: CircularProgressIndicator(),
+                        )
+                      : const Text(
+                          'Add Item',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+              ),
             ],
           ),
         ),
