@@ -93,9 +93,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           textStyle: Theme.of(context).textTheme.labelLarge,
                           shadowColor: Colors.grey,
                         ),
-                        child: const Text(
+                        child: Text(
                           'Menu',
-                          style: TextStyle(fontSize: 30),
+                          style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * .075),
                         ),
                       ),
                     ),
@@ -124,9 +126,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           textStyle: Theme.of(context).textTheme.labelLarge,
                           shadowColor: Colors.grey,
                         ),
-                        child: const Text(
+                        child: Text(
                           'Games',
-                          style: TextStyle(fontSize: 30),
+                          style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * .075),
                         ),
                       ),
                     ),

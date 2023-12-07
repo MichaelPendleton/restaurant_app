@@ -105,9 +105,10 @@ class _GamesScreenState extends State<GamesScreen> {
                       textStyle: Theme.of(context).textTheme.labelLarge,
                       shadowColor: const Color.fromARGB(255, 160, 197, 172),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Tic Tac Toe',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * .075),
                     ),
                   ),
                 ),
@@ -135,9 +136,10 @@ class _GamesScreenState extends State<GamesScreen> {
                       textStyle: Theme.of(context).textTheme.labelLarge,
                       shadowColor: Colors.grey,
                     ),
-                    child: const Text(
+                    child: Text(
                       'Word Scramble',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * .075),
                     ),
                   ),
                 ),
@@ -165,9 +167,10 @@ class _GamesScreenState extends State<GamesScreen> {
                       textStyle: Theme.of(context).textTheme.labelLarge,
                       shadowColor: Colors.white,
                     ),
-                    child: const Text(
+                    child: Text(
                       'Hangman',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * .075),
                     ),
                   ),
                 ),

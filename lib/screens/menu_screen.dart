@@ -91,9 +91,10 @@ class _MenuScreenState extends State<MenuScreen> {
                     textStyle: Theme.of(context).textTheme.labelLarge,
                     shadowColor: Colors.grey,
                   ),
-                  child: const Text(
+                  child: Text(
                     'Entrees',
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * .075),
                   ),
                 ),
               ),
@@ -122,9 +123,10 @@ class _MenuScreenState extends State<MenuScreen> {
                     textStyle: Theme.of(context).textTheme.labelLarge,
                     shadowColor: Colors.grey,
                   ),
-                  child: const Text(
+                  child: Text(
                     'Sides',
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * .075),
                   ),
                 ),
               ),
@@ -153,9 +155,10 @@ class _MenuScreenState extends State<MenuScreen> {
                     textStyle: Theme.of(context).textTheme.labelLarge,
                     shadowColor: Colors.grey,
                   ),
-                  child: const Text(
+                  child: Text(
                     'Beverages',
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * .075),
                   ),
                 ),
               ),

@@ -150,10 +150,11 @@ class _NewMenuItemState extends State<NewMenuItem> {
                             value: menuItemType.value,
                             child: Text(
                               menuItemType.value.title,
-                              style: const TextStyle(
-                                fontSize: 18,
+                              style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).size.width * .05,
                                 fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 163, 163, 211),
+                                color: const Color.fromARGB(255, 163, 163, 211),
                               ),
                             ),
                           ),
@@ -175,12 +176,12 @@ class _NewMenuItemState extends State<NewMenuItem> {
                     child: CheckboxListTile(
                       controlAffinity: ListTileControlAffinity.leading,
                       contentPadding: EdgeInsets.zero,
-                      title: const Text(
+                      title: Text(
                         'For Kids',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: MediaQuery.of(context).size.width * .045,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 163, 163, 211),
+                          color: const Color.fromARGB(255, 163, 163, 211),
                         ),
                       ),
                       value: _selectedIsKids,
@@ -193,17 +194,17 @@ class _NewMenuItemState extends State<NewMenuItem> {
                       },
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 5),
                   Expanded(
                     child: CheckboxListTile(
                       controlAffinity: ListTileControlAffinity.leading,
                       contentPadding: EdgeInsets.zero,
-                      title: const Text(
+                      title: Text(
                         'Gluten Free',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: MediaQuery.of(context).size.width * .045,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 163, 163, 211),
+                          color: const Color.fromARGB(255, 163, 163, 211),
                         ),
                       ),
                       value: _selectedIsGlutenFree,
